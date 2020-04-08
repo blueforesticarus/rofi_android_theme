@@ -1,5 +1,5 @@
 #!/bin/bash
-LINES=6
+LINES=7
 source `dirname $0`/common.sh
 
 stat="$(playerctl status -f "{{status}},{{loop}},{{shuffle}}")"
@@ -13,6 +13,7 @@ tog_random=""
 stop=""
 next=""
 previous=""
+settings=""
 
 if [[ "$S_PLAY" == "Playing" ]]; then
     play_pause=""
@@ -46,9 +47,12 @@ else
 fi
 
 # Variable passed to rofi
-OPT="$previous\n$play_pause\n$stop\n$next\n$tog_repeat\n$tog_random"
+OPT="$previous\n$play_pause\n$stop\n$next\n$tog_repeat\n$tog_random\n$settings"
 RET="$( ROFI "$OPT" 1 $urgent $active )"
 case $RET in
+    $settings)
+        launch -n kitty --class Spotify-Tui spt 
+        ;;
     $previous)
         playerctl previous
         ;;

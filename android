@@ -1,0 +1,21 @@
+#!/bin/bash
+
+dir=$(dirname $(realpath $0))/bin/
+script=$1.sh
+
+echo $dir
+cd $dir
+
+if [ ! -f "$script" ]; then 
+    if [ "$1" != "--help" -a "$1" != "-h" -a ! -z "$1" ];then
+        echo -e "ERR: '$1' is not valid menu\n"
+    fi
+
+    echo -e "Available Menus:\n----------------"
+    find . -type f -not -name "common.sh" -exec basename -s .sh {} \;
+    exit 1
+fi
+
+bash $script
+
+
