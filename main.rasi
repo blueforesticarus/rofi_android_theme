@@ -1,0 +1,90 @@
+/* adapted from: https://github.com/adi1090x/rofi
+ * Author: Erich Spaker
+ */
+
+@import "colors.rasi"
+
+* {
+  /* Parameters */
+  icon-font: "feather 34";
+  
+  window-width:   2.7em;
+  window-padding: 0.2em;
+  item-border:    0px;
+  item-spacing:   0.2em;
+  item-padding:   0.6em 0em 0.5em 0.7em;
+
+  radius-item:    0.3em;      
+  radius-window:  0.4em;
+
+  num-lines: 3;
+}
+
+* {
+  background-color: @background;
+  text-color: @foreground;
+  font: @icon-font;
+}
+
+#window {
+  width: @window-width;
+  anchor: east;
+  location: east;
+  x-offset: -1%;
+  y-offset: 0%;
+  border: 0px;
+  border-radius: @radius-window;
+  
+  padding: @window-padding;
+  children: [ inputbar, horibox ];
+}
+
+#element {
+  border-radius: @radius-item;
+  background-color: @background-light;
+  
+  font: @icon-font;
+  padding: @item-padding;
+  
+  border: @item-border;
+  border-color: @background-light;
+}
+
+#listview {
+  layout: vertical;
+  spacing: @item-spacing;
+  lines: @num-lines;
+}
+
+#horibox {
+  children: [ listview ];
+}
+
+#inputbar {
+  enabled: false;
+  children: [ textbox-prompt-colon, prompt ];
+}
+
+element.active,
+element.urgent,
+element.selected{
+   text-color: @background;
+}
+
+element.selected{
+   background-color: @accent;
+   border-color: @accent;
+}
+
+element.active,
+element.selected.urgent {
+  background-color: @on;
+  border-color: @on;
+}
+
+element.urgent,
+element.selected.active{
+  background-color: @off;
+  border-color: @off;
+}
+
